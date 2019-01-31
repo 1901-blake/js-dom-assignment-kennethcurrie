@@ -192,11 +192,12 @@ function showHide(text){
 	fullList = document.querySelectorAll(".empName");
 	filteredList = [];
 	fullList.forEach(Element =>{
-		if(Element.innerText === text){
-			if(Element.attributes["style"] === "visibility:visible"){
-				Element.setAttribute('style', 'visibility:visible');
+		if(Element.innerHTML === text){
+			console.log(Element.innerHTML);
+			if(Element.innerHTML.includes("visibility:visible")){
+				Element.innerHTML = Element.innerHTML.replace('visibility:visible', 'visibility:hidden');
 			}else{
-				Element.setAttribute('style', 'visibility:hidden');
+				Element.innerHTML = Element.innerHTML.replace('visibility:hidden', 'visibility:visible');
 			}
 		}
 	});
@@ -205,8 +206,10 @@ function showHide(text){
 function setShowHide(){
 	empList = document.querySelectorAll(".empName");
 	empList.forEach(Element =>{
-		Element.setAttribute('onmouseover','showHide(this.innerText)');
-		Element.setAttribute('style', 'visibility:visible');
+		Element.innerHTML = `<div style="visibility:visible">${Element.innerHTML}</div>`;
+	});
+	empList.forEach(Element =>{
+		Element.setAttribute('onmouseover','showHide(this.innerHTML)');
 	});
 }
 
@@ -230,7 +233,7 @@ Regarding this element:
 Three seconds after a user clicks on this element, change the text to a random color.*/
 
 function helloWorldOnClick(){
-	document.getElementById("helloWorld").setAttribute('style',`color:#${Math.floor(Math.random()*0xFFFF).toString(16)}`)
+	document.getElementById("helloWorld").setAttribute('style',`color:#${Math.floor(Math.random()*0xFFFFFF).toString(16)}`)
 }
 
 function setHelloWorldOnClick(){
@@ -255,3 +258,4 @@ function walkTheDOM(node, func){
 }
 
 walkTheDOM(document, 0);
+console.log();
